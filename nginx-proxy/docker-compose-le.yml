@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  nginx-proxy:
+    container_name: 'nginx-proxy'
+    image: jwilder/nginx-proxy:alpine
+    restart: unless-stopped
+    volumes:
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - application
+    ports:
+      - 80:80
+      - 443:443
+
+  nginx-letsencrypt:
+    container_name: 'nginx-proxy-le'
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: unless-stopped
+    depends_on:
+      - nginx-proxy
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+      - DEFAULT_EMAIL=andrebarsotti@gmail.com
+    volumes:
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - application
+
+volumes: 
+  vhost:
+    name: nginx-vhost
+  html:
+    name: nginx-html
+  certs:
+    name: nginx-certs
+
+networks:
+  application:
+    name: nginx-net

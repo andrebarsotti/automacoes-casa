@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  whoami:
+    image: jwilder/whoami
+    environment:
+      - VIRTUAL_HOST=whoami.localhost
+      - LETSENCRYPT_HOST=whoami.localhost
+    networks: 
+      - application
+
+networks:
+  application:
+    external: 
+    name: nginx-net

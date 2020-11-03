@@ -1,0 +1,30 @@
+version: "2.1"
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - UMASK_SET=022
+      - WEBUI_PORT=8080
+    volumes:
+      - config:/config
+      - </path/to/downloads>:/downloads
+    ports:
+      - 6881:6881
+      - 6881:6881/udp
+      - 8080:8080
+    restart: unless-stopped
+    networks: 
+        - application
+
+volumes: 
+    config: 
+        name: qbittorrent-config       
+
+networks:
+    application:
+      external: 
+      name: nginx-net
