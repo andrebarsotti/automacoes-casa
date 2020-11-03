@@ -7,13 +7,12 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
-      #- PASSWORD=123 #optional
-      #- SUDO_PASSWORD=123 #optional
-      #- PROXY_DOMAIN=code-server.my.domain #optional
+      - PASSWORD=123 #optional
+      - SUDO_PASSWORD=123 #optional
       - VIRTUAL_HOST=code.localhost
       #- LETSENCRYPT_HOST=code.localhost
       #- VIRTUAL_PROTO=https
-      #- VIRTUAL_PORT=8443
+      - VIRTUAL_PORT=8443
     volumes:
       - config:/config
       - workspace:/workspace
@@ -31,4 +30,5 @@ volumes:
 
 networks:
   application:
-    name: nginx-net
+    external: 
+      name: nginx-net

@@ -6,12 +6,15 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=America/Sao_Paulo
       - UMASK_SET=022
       - WEBUI_PORT=8080
+      - VIRTUAL_HOST=qbittorrent.localhost
+      #- VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=8080
     volumes:
       - config:/config
-      - </path/to/downloads>:/downloads
+      - ./downloads:/downloads
     ports:
       - 6881:6881
       - 6881:6881/udp
@@ -27,4 +30,4 @@ volumes:
 networks:
     application:
       external: 
-      name: nginx-net
+        name: nginx-net

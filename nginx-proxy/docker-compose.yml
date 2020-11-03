@@ -5,23 +5,13 @@ services:
     image: jwilder/nginx-proxy:alpine
     restart: unless-stopped
     volumes:
-      # - vhost:/etc/nginx/vhost.d
-      # - html:/usr/share/nginx/html
-      - /home/andre/Documents/vm-share/nginx-proxy/certs:/etc/nginx/certs:ro
+      - ./certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - application
     ports:
       - 80:80
       - 443:443
-
-# volumes: 
-#   vhost:
-#     name: nginx-vhost
-#   html:
-#     name: nginx-html
-#   certs:
-#     name: nginx-certs
 
 networks:
   application:
