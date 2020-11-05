@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  emby:
+    image: linuxserver/emby
+    container_name: emby
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      #- UMASK_SET=<022> #optional
+      - VIRTUAL_HOST=emby.localhost
+      - VIRTUAL_PORT=8096
+    volumes:
+      - config:/config
+      - ../qbittorrent/downloads:/data/tvshows
+      - ../qbittorrent/downloads:/data/movies
+      # - /path/for/transcoding:/transcode #optional
+      # - /opt/vc/lib:/opt/vc/lib #optional
+    # ports:
+    #   - 8096:8096
+    #   - 8920:8920 #optional
+    # devices:
+    #   - /dev/dri:/dev/dri #optional
+    #   - /dev/vchiq:/dev/vchiq #optional
+    #   - /dev/video10:/dev/video10 #optional
+    #   - /dev/video11:/dev/video11 #optional
+    #   - /dev/video12:/dev/video12 #optional
+    restart: unless-stopped
+    networks: 
+      - application
+
+volumes: 
+  config: 
+      name: emby-config       
+
+networks:
+  application:
+    external: 
+      name: nginx-net
