@@ -15,4 +15,5 @@ services:
 
 networks:
   application:
+    external: true
     name: nginx-net
