@@ -16,9 +16,9 @@ services:
       - ../qbittorrent/downloads:/data/movies
       # - /path/for/transcoding:/transcode #optional
       # - /opt/vc/lib:/opt/vc/lib #optional
-    # ports:
-    #   - 8096:8096
-    #   - 8920:8920 #optional
+    ports:
+      - 8096:8096
+    #   - 8920:8920 #optional https
     # devices:
     #   - /dev/dri:/dev/dri #optional
     #   - /dev/vchiq:/dev/vchiq #optional
@@ -35,5 +35,5 @@ volumes:
 
 networks:
   application:
-    external: 
-      name: nginx-net
+    external: true 
+    name: nginx-net
