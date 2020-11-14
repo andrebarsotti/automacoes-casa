@@ -10,7 +10,7 @@ ROOTCERT="rootCA"
 DOMAIN=$1
 
 openssl genrsa -out certs/$DOMAIN.key 2048
-openssl req -new -key certs/$DOMAIN.key -out certs/$DOMAIN.csr -subj "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=Andre Salvadeo/CN=$ROOTCERT"
+openssl req -new -key certs/$DOMAIN.key -out certs/$DOMAIN.csr -subj "/C=BR/ST=Sao Paulo/L=Sao Paulo/O=Andre Claudinei Barsotti/CN=$DOMAIN"
 
 cat > certs/$DOMAIN.ext << EOF
 authorityKeyIdentifier=keyid,issuer

@@ -12,13 +12,14 @@ services:
       - VIRTUAL_PORT=8096
     volumes:
       - config:/config
-      - ../qbittorrent/downloads:/data/tvshows
+      # - ../qbittorrent/downloads:/data/tvshows
       - ../qbittorrent/downloads:/data/movies
+      - ./certs:/certs
       # - /path/for/transcoding:/transcode #optional
       # - /opt/vc/lib:/opt/vc/lib #optional
     ports:
       - 8096:8096
-    #   - 8920:8920 #optional https
+      - 8920:8920 #optional https
     # devices:
     #   - /dev/dri:/dev/dri #optional
     #   - /dev/vchiq:/dev/vchiq #optional
