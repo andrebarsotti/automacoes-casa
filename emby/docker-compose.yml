@@ -13,7 +13,8 @@ services:
     volumes:
       - config:/config
       # - ../qbittorrent/downloads:/data/tvshows
-      - ../qbittorrent/downloads:/data/movies
+      # - ../qbittorrent/downloads:/data/movies
+      - ../qbittorrent/downloads:/data
       - ./certs:/certs
       # - /path/for/transcoding:/transcode #optional
       # - /opt/vc/lib:/opt/vc/lib #optional

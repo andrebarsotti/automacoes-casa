@@ -12,32 +12,33 @@ services:
     volumes:
       - config-radarr:/config
       - movies:/movies
-      - ../qbittorrent/downloads:/downloads
+      - ../qbittorrent/downloads/movies:/downloads
     # ports:
     #   - 7878:7878
     restart: unless-stopped
     networks: 
       - application
 
-  medusa:
-    image: linuxserver/medusa
-    container_name: medusa
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/Sao_Paulo
-      - VIRTUAL_HOST=medusa.localhost
-      - VIRTUAL_PORT=8081
+      - UMASK_SET=022 #optional
+      - VIRTUAL_HOST=sonarr.localhost
+      - VIRTUAL_PORT=8989
     volumes:
-      - config-medusa:/config
-      - tv:/tv
-      - ../qbittorrent/downloads:/downloads
-    # ports:
-    #   - 8081:8081
+      - config-sonarr:/config
+      - tvseries:/tv
+      - ../qbittorrent/downloads/tvshows:/downloads
+    ports:
+      - 8989:8989
     restart: unless-stopped
     networks: 
       - application
-  
+
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -59,15 +60,15 @@ services:
 
 volumes: 
   config-radarr: 
-      name: radarr-config
+    name: radarr-config
   config-jackett: 
-      name: radarr-jackett
-  config-medusa: 
-      name: radarr-medusa
+    name: radarr-jackett
+  config-sonarr:
+    name: sonarr-config
   movies: 
-      name: radarr-movies
-  tv: 
-      name: medusa-tv
+    name: radarr-movies
+  tvseries:
+    name: sonarr-tvseries
 
 networks:
   application:
